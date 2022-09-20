@@ -1,7 +1,8 @@
 <?php
 
 class Personnage{
-    private static $_compteur = 0;
+    
+    private $_id;
     private $_nom;
     private $_force;
     private $_xp;
@@ -11,14 +12,25 @@ class Personnage{
     const FORCE_MOYENNE =50;
     const FORCE_GRAND =80;
 
-    public function __construct(string $nom, int $force)
+    public function __construct(array $ligne)
     {
-        $this->_id= self::$_compteur += 1 ;
-        $this->_nom = $nom;
-        $this->setPv(100);
-        $this->setForce($force);
-        $this->setxp(0);
+        $this->hydrate($ligne);
+       
     }
+
+    public function hydrate(array $ligne) {
+        foreach($ligne as $key => $value){
+            $mutateur = "set".ucfirst($key);
+            if(method_exists($this,$mutateur)){
+            $this->$mutateur($value);
+        }
+    }
+        
+    }
+
+
+
+
 
     public function frapper(Personnage $adversaire)
     {
@@ -29,10 +41,18 @@ class Personnage{
         $this->setxp($this->_xp + 1);
         return $this;
     }
+
+
+
+
     public function  parler()
     {
-        print("je suis le ".self::$_compteur." personnage <br/>");
+        print("je suis le ".self::$_id." personnage <br/>");
     }
+
+
+
+
     public function __toString():string
     {
         return ('<br/>boujour je m apelle ' . $this->_nom
@@ -78,6 +98,9 @@ class Personnage{
     {
         if (in_array($force, array(self::FORCE_PETIT,self::FORCE_MOYENNE,self::FORCE_GRAND))){
             $this->_force = $force;
+        }
+        else{
+            $this->_force = -1;
         }
         
 
@@ -126,6 +149,26 @@ class Personnage{
     public function setPv(int $_pv)
     {
         $this->_pv = $_pv;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of id
+     */ 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @return  self
+     */ 
+    public function setId($id)
+    {
+        $this->id = $id;
 
         return $this;
     }

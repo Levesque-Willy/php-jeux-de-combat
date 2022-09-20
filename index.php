@@ -45,13 +45,14 @@ try {
     $db = new PDO($dsn,$user,$password,$options);
     if ($db){
         print('<br/>Lecute dans la base de données :');
-        $request = $db->query('SELECT id,nom, `force`,pv,niveau,xp FROM personnages;');
+        $request = $db->query('SELECT id ,nom, `force`,pv,xp FROM personnages;');
 
         while($ligne = $request->fetch(PDO::FETCH_ASSOC))
         {
-            print('<br/>'.$ligne['nom'].'a'.$ligne['force'].
-            'de force'.$ligne['pv'].'de point de vie,'.$ligne['experience'].'d\'experienxe et est au nieau'
-            .$ligne['niveau']);
+           /* print('<br/>'.$ligne['nom'].' a '.$ligne['force'].
+            ' de force '.$ligne['pv'].' de point de vie, '.$ligne['xp'].' d\'experienxe');*/
+            $perso = new Personnage($ligne);
+            print('<br/>'. $perso->getNom().' a ('.$perso->getForce().') de force ('. $perso->getPv().')point de vie est a ('. $perso->getXp().') d\'experience');
         
         }
     }
