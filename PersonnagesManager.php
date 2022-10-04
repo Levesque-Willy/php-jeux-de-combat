@@ -42,7 +42,7 @@ class PersonnagesManager
     {
         $id = (int) $id;
 
-        $request = $this->_db->prepare('SELECT id,nom,`force`,xp,pv FROM persçonages');
+        $request = $this->_db->prepare('SELECT id, nom,`force`, xp, pv FROM personnages');
         $request->execute();
 
         if ($request->errorCode() > 0) {

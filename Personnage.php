@@ -1,31 +1,31 @@
 <?php
 
-class Personnage{
-    
+class Personnage
+{
+
     private $_id;
     private $_nom;
     private $_force;
     private $_xp;
     private $_pv;
 
-    const FORCE_PETIT =20;
-    const FORCE_MOYENNE =50;
-    const FORCE_GRAND =80;
+    const FORCE_PETIT = 20;
+    const FORCE_MOYENNE = 50;
+    const FORCE_GRAND = 80;
 
     public function __construct(array $ligne)
     {
         $this->hydrate($ligne);
-       
     }
 
-    public function hydrate(array $ligne) {
-        foreach($ligne as $key => $value){
-            $mutateur = "set".ucfirst($key);
-            if(method_exists($this,$mutateur)){
-            $this->$mutateur($value);
+    public function hydrate(array $ligne)
+    {
+        foreach ($ligne as $key => $value) {
+            $mutateur = "set" . ucfirst($key);
+            if (method_exists($this, $mutateur)) {
+                $this->$mutateur($value);
+            }
         }
-    }
-        
     }
 
 
@@ -36,7 +36,8 @@ class Personnage{
     {
         $adversaire->setPv($adversaire->getPv() - $this->getForce());
     }
-    public function gagnerExperience():Personnage
+
+    public function gagnerExperience(): Personnage
     {
         $this->setxp($this->_xp + 1);
         return $this;
@@ -47,18 +48,18 @@ class Personnage{
 
     public function  parler()
     {
-        print("je suis le ".self::$_id." personnage <br/>");
+        print("je suis le " . self::$_id . " personnage <br/>");
     }
 
 
 
 
-    public function __toString():string
+    public function __toString(): string
     {
         return ('<br/>boujour je m apelle ' . $this->_nom
-        . '<br/> ma force est de : ' . intval($this->_force) . '<br/>'
-        . ' mon experience ' . intval($this->_xp) . ' xp! <br/>')
-        .'ma vie est de '.intval($this->_pv).'pv.<br/><br/>';
+            . '<br/> ma force est de : ' . intval($this->_force) . '<br/>'
+            . ' mon experience ' . intval($this->_xp) . ' xp! <br/>')
+            . 'ma vie est de ' . intval($this->_pv) . 'pv.<br/><br/>';
     }
 
     /**
@@ -96,13 +97,12 @@ class Personnage{
      */
     public function setForce(int $force)
     {
-        if (in_array($force, array(self::FORCE_PETIT,self::FORCE_MOYENNE,self::FORCE_GRAND))){
+        if (in_array($force, array(self::FORCE_PETIT, self::FORCE_MOYENNE, self::FORCE_GRAND))) {
             $this->_force = $force;
-        }
-        else{
+        } else {
             $this->_force = -1;
         }
-        
+
 
         return $this;
     }
@@ -155,7 +155,7 @@ class Personnage{
 
     /**
      * Get the value of id
-     */ 
+     */
     public function getId()
     {
         return $this->id;
@@ -165,7 +165,7 @@ class Personnage{
      * Set the value of id
      *
      * @return  self
-     */ 
+     */
     public function setId($id)
     {
         $this->id = $id;

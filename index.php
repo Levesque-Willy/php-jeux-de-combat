@@ -76,35 +76,43 @@ try {
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jeu de combat</title>
 </head>
+
 <body>
-<h1>Jeu de combat</h1>
+    <h1>Jeu de combat</h1>
+
     <table border=1>
         <tr>
-        <th>Nom du personnage</th>
-        <th>Force</th>
-        <th>Experience</th>
-        <th>Point de vie</th>
-        
+            <th>Nom du personnage</th>
+            <th>Force</th>
+            <th>Experience</th>
+            <th>Point de vie</th>             
         </tr>
+        <form action="selectionPerso.php" method="get">
+
+        
         <?php
-            $personnages = $pm->getList();
-              
-            foreach ($personnages as $personnage) {
-                print('        <tr>');
-                print('            <td>'.$personnage->getNom().'</td>');
-                print('            <td style="text-align: center;">'.$personnage->getForce().'</td>');
-                print('            <td style="text-align: center;">'.$personnage->getXp().'</td>');
-                print('            <td style="text-align: center;">'.$personnage->getPv().'</td>');
-                print('            <td style="text-align: center;"> <a href="selectionPerso.php?id='.$personnage->getId().'">select</a></td>');
-                print('        </tr>');
-            }    
+        $personnages = $pm->getList();
+
+        foreach ($personnages as $personnage) {
+            print('        <tr>');
+            print('            <td>' . $personnage->getNom() . '</td>');
+            print('            <td style="text-align: center;">' . $personnage->getForce() . '</td>');
+            print('            <td style="text-align: center;">' . $personnage->getXp() . '</td>');
+            print('            <td style="text-align: center;">' . $personnage->getPv() . '</td>');
+            print('            <td style="text-align: center;"> <a href="selectionPerso.php?id=' . $personnage->getId() . '">select</a></td>');
+            print('        </tr>');
+        }
         ?>
+        </form>
     </table>
+    
 </body>
+
 </html>
