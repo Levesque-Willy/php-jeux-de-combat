@@ -1,17 +1,18 @@
 <?php
 
-class Personnage
+abstract class Personnage
 {
 
-    private $_id;
-    private $_nom;
-    private $_force;
-    private $_xp;
-    private $_pv;
+    protected $_id;
+    protected $_nom;
+    protected $_force;
+    protected $_xp;
+    protected $_pv;
 
     const FORCE_PETIT = 20;
     const FORCE_MOYENNE = 50;
     const FORCE_GRAND = 80;
+    const FORCE_TITANESQUE =100;
 
     public function __construct(array $ligne)
     {
@@ -97,7 +98,7 @@ class Personnage
      */
     public function setForce(int $force)
     {
-        if (in_array($force, array(self::FORCE_PETIT, self::FORCE_MOYENNE, self::FORCE_GRAND))) {
+        if (in_array($force, array(self::FORCE_PETIT, self::FORCE_MOYENNE, self::FORCE_GRAND,self::FORCE_TITANESQUE))) {
             $this->_force = $force;
         } else {
             $this->_force = -1;
